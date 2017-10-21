@@ -1,0 +1,25 @@
+{
+  "name": "felixrupp/bookedcas",
+  "description": "This is the CAS authentication plugin for the php based scheduling app Booked.",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Felix Rupp",
+      "email": "kontakt@felixrupp.com"
+    },
+    {
+       "name": "Nick Korbel"
+    },
+    {
+      "name": "Bart Verheyde"
+    },
+    {
+      "name": "Bryan Green"
+    }
+  ],
+  "require" : {
+        "ext-curl" : "*",
+        "apereo/phpcas": "~1.3.5"
+    }
+}
