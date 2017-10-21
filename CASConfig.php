@@ -1,23 +1,23 @@
 <?php
 /**
-Copyright 2013-2014 Bart Verheyde, Nick Korbel
-bart.verheyde@ugent.be
-
-This file is not part of Booked Scheduler.
-
-Booked Scheduler is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Booked Scheduler is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright 2013-2014 Bart Verheyde, Nick Korbel
+ * bart.verheyde@ugent.be
+ *
+ * This file is not part of Booked Scheduler.
+ *
+ * Booked Scheduler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Booked Scheduler is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 class CASConfig
 {
@@ -33,6 +33,10 @@ class CASConfig
     const CAS_DEBUG_ENABLED = 'cas.debug.enabled';
     const EMAIL_SUFFIX = 'email.suffix';
     const DEBUG_FILE = 'cas.debug.file';
+    const CAS_MAPPING_FIRSTNAME = 'cas.mapping.firstname';
+    const CAS_MAPPING_LASTNAME = 'cas.mapping.lastname';
+    const CAS_MAPPING_EMAIL = 'cas.mapping.email';
+    const CAS_MAPPING_ORGANIZATION = 'cas.mapping.organization';
 }
 
 ?>
