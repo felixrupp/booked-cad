@@ -1,34 +1,40 @@
 <?php
 /**
-Copyright 2013-2014 Bart Verheyde, Nick Korbel
-bart.verheyde@ugent.be
-This file is not part of default Booked Scheduler.
+ * Copyright 2013-2014 Bart Verheyde, Nick Korbel
+ * bart.verheyde@ugent.be
+ * This file is not part of default Booked Scheduler.
+ *
+ * Booked Scheduler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Booked Scheduler is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-Booked Scheduler is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+$conf['settings']['cas.version'] = 'S1';                    // '1.0' = CAS_VERSION_1_0, '2.0 = CAS_VERSION_2_0, 'S1' = SAML_VERSION_1_1
+$conf['settings']['cas.server.hostname'] = 'localhost';     // the hostname of the CAS server (without http:// or https://)
+$conf['settings']['cas.port'] = '443';                      // the port the CAS server is running on
+$conf['settings']['cas.server.uri'] = '';                   // the URI the CAS server is responding on, in most cases 'cas'
+$conf['settings']['cas.change.session.id'] = 'false';       // Allow phpCAS to change the session_id
+$conf['settings']['email.suffix'] = '@yourdomain.com';      // DEPRECATED Email suffix to use when storing CAS user account. IE, email addresses will be saved to Booked Scheduler as username@yourdomain.com
 
-Booked Scheduler is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+$conf['settings']['cas_logout_servers'] = '';               // Comma separated list of servers to use for single-sign-out logout. Leave blank to not use cas logout servers
+$conf['settings']['cas_logout_full'] = 'false';             // If true, the whole CAS session will be terminated on logout, cas_logout_servers will be ignored then
 
-You should have received a copy of the GNU General Public License
-along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-$conf['settings']['cas.version'] = 'S1';					// '1.0' = CAS_VERSION_1_0, '2.0 = CAS_VERSION_2_0, 'S1' = SAML_VERSION_1_1
-$conf['settings']['cas.server.hostname'] = 'localhost';		// the hostname of the CAS server
-$conf['settings']['cas.port'] = '443';						// the port the CAS server is running on
-$conf['settings']['cas.server.uri'] = '';					// the URI the CAS server is responding on
-$conf['settings']['cas.change.session.id'] = 'false';		// Allow phpCAS to change the session_id
-$conf['settings']['email.suffix'] = '@yourdomain.com';		// Email suffix to use when storing CAS user account. IE, email addresses will be saved to Booked Scheduler as username@yourdomain.com
-
-$conf['settings']['cas_logout_servers'] = '';				// Comma separated list of servers to use for logout. Leave blank to not use cas logout servers
-
-$conf['settings']['cas.certificates'] = '';	// Path to certificate to use for CAS. Leave blank if no certificate should be used
+$conf['settings']['cas.certificates'] = '';                 // Path to certificate to use for CAS. Leave blank if no certificate should be used
 
 $conf['settings']['cas.debug.enabled'] = 'false';
 $conf['settings']['cas.debug.file'] = '/tmp/phpcas.log';
+
+$conf['settings']['cas.mapping.firstname'] = 'firstnames';  // Name of the property in which the firstnames are stored (depends on your CAS-Server config, please ask your administrator or acitvate the 'cas.debug.enabled' option and look into your webservers error log
+$conf['settings']['cas.mapping.lastname'] = 'surnames';     // Name of the property in which the lastnames are stored (depends on your CAS-Server config, please ask your administrator or acitvate the 'cas.debug.enabled' option and look into your webservers error log
+$conf['settings']['cas.mapping.email'] = 'mail';            // Name of the property in which the emails are stored (depends on your CAS-Server config, please ask your administrator or acitvate the 'cas.debug.enabled' option and look into your webservers error log
+$conf['settings']['cas.mapping.organization'] = 'department';      // Name of the property in which the organizations are stored (depends on your CAS-Server config, please ask your administrator or acitvate the 'cas.debug.enabled' option and look into your webservers error log
 ?>

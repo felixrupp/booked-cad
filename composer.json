@@ -9,17 +9,18 @@
       "email": "kontakt@felixrupp.com"
     },
     {
-       "name": "Nick Korbel"
+      "name": "Nick Korbel"
     },
     {
-      "name": "Bart Verheyde"
+      "name": "Bart Verheyde",
+      "email": "bart.verheyde@ugent.be"
     },
     {
       "name": "Bryan Green"
     }
   ],
-  "require" : {
-        "ext-curl" : "*",
-        "apereo/phpcas": "~1.3.5"
-    }
+  "require": {
+    "ext-curl": "*",
+    "apereo/phpcas": "~1.3.5"
+  }
 }

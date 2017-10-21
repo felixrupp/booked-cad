@@ -98,9 +98,9 @@ class CAS extends Authentication implements IAuthentication
         Log::Debug('Attempting CAS logout for email: %s', $user->Email);
         $this->authToDecorate->Logout($user);
 
-        if ($this->options->CasHandlesLogouts()) {
+        //if ($this->options->CasHandlesLogouts()) {
             phpCAS::logout();
-        }
+        //}
     }
 
     public function AreCredentialsKnown()
@@ -139,58 +139,51 @@ class CAS extends Authentication implements IAuthentication
 
         $casAttributes = phpCAS::getAttributes();
 
-        Log::Debug("CAS-Attributes: \n%s", print_r($casAttributes));
-
-        #$userClassProperty = $casAttributes['userClass'];
-
-        $groups = NULL;
-
-        /*if (!is_array($userClassProperty)) {
-
-            $userClassProperty = array($userClassProperty);
+        if ($this->options->IsCasDebugOn()) {
+            $this->debugCasAttributes($casAttributes);
         }
 
-        foreach($userClassProperty as $groupName) {
-
-            $id = 1; // Student
-            if($groupName === "M") $id = 2; // Mitarbeiter
-            if($groupName === "P") $id = 3; // Professor
-
-            $groups[] = $this->groupRepository->LoadById($id);
-        }*/
-
-        $firstNamesProperty = $casAttributes['firstnames'];
-        $firstNames = '';
+        /**
+         * sync firstnames
+         */
+        $firstNamesProperty = $casAttributes[$this->options->MappingFirstname()];
+        $firstName = '';
 
         if (is_array($firstNamesProperty)) {
 
-            foreach ($firstNamesProperty as $firstName) {
+            foreach ($firstNamesProperty as $singleFirstName) {
 
-                $firstNames .= $firstName . ' ';
+                $firstName .= $singleFirstName . ' ';
             }
         } else if (is_string($firstNamesProperty)) {
 
-            $firstNames = $firstNamesProperty;
+            $firstName = $firstNamesProperty;
         }
-        trim($firstNames);
+        trim($firstName);
 
-        $surNamesProperty = $casAttributes['surnames'];
-        $surNames = '';
+        /**
+         * Sync surnames
+         */
+        $LastNamesProperty = $casAttributes[$this->options->MappingLastname()];
+        $lastName = '';
 
-        if (is_array($surNamesProperty)) {
+        if (is_array($LastNamesProperty)) {
 
-            foreach ($surNamesProperty as $surName) {
+            foreach ($LastNamesProperty as $singleLastName) {
 
-                $surNames .= $surName . ' ';
+                $lastName .= $singleLastName . ' ';
             }
-        } else if (is_string($surNamesProperty)) {
+        } else if (is_string($LastNamesProperty)) {
 
-            $surNames = $surNamesProperty;
+            $lastName = $LastNamesProperty;
         }
-        trim($surNames);
+        trim($lastName);
 
+        /**
+         * Sync emails
+         */
         $emailProperty = '';
-        if (isset($casAttributes['mail'])) $emailProperty = $casAttributes['mail'];
+        if (isset($casAttributes['mail'])) $emailProperty = $casAttributes[$this->options->MappingEmail()];
 
         if (is_array($emailProperty)) {
 
@@ -199,19 +192,73 @@ class CAS extends Authentication implements IAuthentication
             $email = $emailProperty;
         }
 
+        /**
+         * Sync Organization
+         */
+        $organizationProperty = $casAttributes[$this->options->MappingOrganization()];
+        $organization = '';
+
+        if (is_array($organizationProperty)) {
+
+            foreach ($organizationProperty as $singleOrganization) {
+
+                $organization .= $singleOrganization . ' ';
+            }
+        } else if (is_string($organizationProperty)) {
+
+            $organization = $organizationProperty;
+        }
+        trim($organization);
+
+
         $registration->Synchronize(
             new AuthenticatedUser(
-                $username,
-                $username,
-                $username,
-                $username,
-                uniqid(),
-                Configuration::Instance()->GetKey(ConfigKeys::LANGUAGE),
-                Configuration::Instance()->GetDefaultTimezone(),
-                null,
-                null,
-                null), true
+                $username, // Username
+                $email, // Email
+                $firstName, // Firstname
+                $lastName, // Lastname
+                uniqid(), // Password
+                Configuration::Instance()->GetKey(ConfigKeys::LANGUAGE), // Languagecode
+                Configuration::Instance()->GetDefaultTimezone(), // Timezone name
+                null, // Phone
+                $organization, // Organization
+                null, // Title
+                null // Groups
+            ), true
         );
+    }
+
+    /**
+     * Log CAS-Attributes to apache error log
+     *
+     * @param array $casAttributes CAS-Attributes for a user
+     */
+    public function debugCasAttributes($casAttributes)
+    {
+
+        /**
+         * debug CAS Attributes
+         */
+        if (is_array($casAttributes)) {
+
+            error_log("CAS-Attributes list:");
+
+            foreach ($casAttributes as $key => $casAttribute) {
+                error_log("CAS-Attribute: " . $key . " / " . $casAttribute);
+
+                if (is_array($casAttribute)) {
+
+                    error_log("Sub-Attributes of " . $key);
+
+                    foreach ($casAttribute as $subKey => $casSubAttribute) {
+
+                        error_log("CAS-Sub-Attribute: " . $subKey . " / " . $casSubAttribute);
+                    }
+                }
+            }
+        } else {
+            error_log("CAS-Attributes is not an array.");
+        }
     }
 }
 
