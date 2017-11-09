@@ -104,7 +104,7 @@ class CAS extends Authentication implements IAuthentication
             $protocol = 'http';
         }
 
-        phpCAS::logout(array("url" => $protocol . "://" . $_SERVER['HTTP_HOST']));
+        phpCAS::logout(array("url" => $protocol . "://" . dirname($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'])));
     }
 
     public function AreCredentialsKnown()
