@@ -98,9 +98,13 @@ class CAS extends Authentication implements IAuthentication
         Log::Debug('Attempting CAS logout for email: %s', $user->Email);
         $this->authToDecorate->Logout($user);
 
-        //if ($this->options->CasHandlesLogouts()) {
-            phpCAS::logout();
-        //}
+        if (isset($_SERVER['HTTPS'])) {
+            $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+        } else {
+            $protocol = 'http';
+        }
+
+        phpCAS::logout(array("url" => $protocol . "://" . $_SERVER['HTTP_HOST']));
     }
 
     public function AreCredentialsKnown()
