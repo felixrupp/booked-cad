@@ -56,9 +56,11 @@ class CAS extends Authentication implements IAuthentication
     {
         if ($this->options->IsCasDebugOn()) {
             phpCAS::setDebug($this->options->DebugFile());
+            phpCAS::setVerbose(true);
         }
         phpCAS::client($this->options->CasVersion(), $this->options->HostName(), $this->options->Port(),
             $this->options->ServerUri(), $this->options->ChangeSessionId());
+            
         if ($this->options->CasHandlesLogouts()) {
             phpCAS::handleLogoutRequests(true, $this->options->LogoutServers());
         }
@@ -66,7 +68,9 @@ class CAS extends Authentication implements IAuthentication
         if ($this->options->HasCertificate()) {
             phpCAS::setCasServerCACert($this->options->Certificate());
         }
-        phpCAS::setNoCasServerValidation();
+        else {
+        	phpCAS::setNoCasServerValidation();
+        }
     }
 
     public function Validate($username, $password)

@@ -25,10 +25,9 @@ $conf['settings']['cas.server.uri'] = '';                   // the URI the CAS s
 $conf['settings']['cas.change.session.id'] = 'false';       // Allow phpCAS to change the session_id
 $conf['settings']['email.suffix'] = '@yourdomain.com';      // DEPRECATED Email suffix to use when storing CAS user account. IE, email addresses will be saved to Booked Scheduler as username@yourdomain.com
 
-$conf['settings']['cas_logout_servers'] = '';               // Comma separated list of servers to use for single-sign-out logout. Leave blank to not use cas logout servers
-$conf['settings']['cas_logout_full'] = 'false';             // If true, the whole CAS session will be terminated on logout, cas_logout_servers will be ignored then
+$conf['settings']['cas.logout.servers'] = '';               // Comma separated list of servers to use for single-sign-out logout. Leave blank to not use cas logout servers
 
-$conf['settings']['cas.certificates'] = '';                 // Path to certificate to use for CAS. Leave blank if no certificate should be used
+$conf['settings']['cas.certificate'] = '';                 // Path to certificate to use for CAS. Leave blank if no certificate should be used
 
 $conf['settings']['cas.debug.enabled'] = 'false';
 $conf['settings']['cas.debug.file'] = '/tmp/phpcas.log';
